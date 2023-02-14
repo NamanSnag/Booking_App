@@ -1,0 +1,151 @@
+.header {
+    position: relative;
+    .marginTop {
+        height: 60px;
+        background-color: rgb(12, 12, 124);
+    }
+
+    .headerContainer{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        background-image: url("https://images.unsplash.com/photo-1416331108676-a22ccb276e35?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1167&q=80");
+        height: 56vh;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+
+        .headerText{
+            background-color: rgba(249, 246, 246, 0.081);
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            color: rgb(255, 255, 255);
+            backdrop-filter: blur(6px);
+
+            .slogan {
+                text-transform: capitalize;
+                padding: 10px;
+                letter-spacing: 2px;
+
+                &:hover {
+                    color: rgb(213, 248, 12);
+                }
+            }
+
+            .headerDesc {
+                padding: 10px 40px;
+                color: white;
+                margin-top: 16px;
+            }
+
+            .headerBtn{
+                margin: 5px 10px;
+                padding: 10px 20px;
+                border-radius: 2rem;
+                border: none;
+                color: rgb(229, 229, 229);
+                font-weight: bold;
+                backdrop-filter: blur(10px);
+                background-color: rgb(255, 98, 0);
+
+                &:hover{
+                    color: white;
+                    background-color: rgb(14, 65, 132);
+                }
+            }
+        }
+        .headerSearch {
+            padding: 4px 0px;
+            width: 100%;
+            max-width: 1024px;
+            color: rgb(0, 0, 0);
+            background-color: white;
+            border: 3px solid gold;
+            border-radius: .5rem;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            gap: 10px;
+            position: absolute;
+            top: 95%;
+
+            .headerSearchItem {
+                padding: 4px 6px;
+                border-radius: 10px;
+                position: relative;
+
+                .headerIcon {
+                    color: rgb(175, 171, 171);
+                    margin: 0px 6px;
+                }
+
+                .date {
+                    position: absolute;
+                    top: 40px;
+                    left: -60px;
+                }
+
+                .headerSearchInput {
+                    outline: none;
+                    border: none;
+                    width: 132px;
+                }
+
+                .headerSearchText {
+                    color: rgb(175, 171, 171);
+                    cursor: pointer;
+                }
+
+                .headerSearchBtn {
+                    border: none;
+                    color: white;
+                    padding: 8px 10px;
+                    background-color: rgb(38, 10, 175);
+                }
+
+                .option {
+                    position: absolute;
+                    top: 40px;
+                    left: 36px;
+                    width: 210px;
+                    border-radius: .4rem;
+                    box-shadow: 13px 13px 5px 0px rgba(0,0,0,0.2);
+
+                    .optionItem {
+                        display: flex;
+                        justify-content: space-between;
+                        margin: 10px;
+
+                        .optionText {
+                            color: gray;
+                        }
+
+                        .optionCounter {
+                            button {
+                                background-color: aliceblue;
+                                margin: 0px 10px;
+                                border: 1px solid blue;
+                            }
+                            
+                            button:disabled {
+                                cursor: not-allowed;
+                            }
+                            
+                            .optionCounterNumber {
+                                font-weight: 200;
+                            }
+                        }
+                    }
+                }
+            }
+
+        }
+    }
+}
