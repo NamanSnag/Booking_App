@@ -1,7 +1,7 @@
 .navbar {
     height: 60px;
-    background-color: rgba(0, 0, 0, 0.212);
-    backdrop-filter: blur(2px);
+    background-color: rgba(77, 75, 75, 0.536);
+    backdrop-filter: blur(4px);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -28,7 +28,7 @@
             }
 
             p{
-                color: white;
+                color: rgb(250, 225, 0);
                 font-weight: 700;
                 font-size: 20px;
                 letter-spacing: 1px;

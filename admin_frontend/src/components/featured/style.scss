@@ -1,0 +1,39 @@
+.featured {
+    width: 100%;
+    max-width: 1024px;
+    display: flex;
+    justify-content: space-around;
+    gap: 20px;
+    flex-wrap: wrap;
+
+    .featuredItem {
+        position: relative;
+        color: white;
+        border-radius: 10px;
+        width: 320px;
+        height: 200px;
+        cursor: pointer;
+        overflow: hidden;
+        transition: 0.3s ease-in-out;
+
+        .featuredImg {
+            width: 100%;
+            object-fit: cover;
+        }
+
+        .featuredTitle {
+            position: absolute;
+            bottom: 20px;
+            background-color: rgba(255, 255, 255, 0.427);
+            text-align: center;
+            backdrop-filter: blur(5px);
+            color: black;
+            padding: 4px;
+            border-top-right-radius: 1rem;
+        }
+
+        &:hover {
+            transform: scale(1.1);
+        }
+    }
+}

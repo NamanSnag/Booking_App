@@ -1,9 +1,5 @@
 .header {
     position: relative;
-    .marginTop {
-        height: 60px;
-        background-color: rgb(12, 12, 124);
-    }
 
     .headerContainer{
         display: flex;
@@ -11,7 +7,7 @@
         align-items: center;
         flex-direction: column;
         background-image: url("https://images.unsplash.com/photo-1416331108676-a22ccb276e35?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1167&q=80");
-        height: 56vh;
+        height: 46vh;
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
@@ -90,6 +86,7 @@
                     position: absolute;
                     top: 40px;
                     left: -60px;
+                    z-index: 2;
                 }
 
                 .headerSearchInput {
@@ -115,7 +112,9 @@
                     top: 40px;
                     left: 36px;
                     width: 210px;
+                    background-color: white;
                     border-radius: .4rem;
+                    z-index: 2;
                     box-shadow: 13px 13px 5px 0px rgba(0,0,0,0.2);
 
                     .optionItem {
