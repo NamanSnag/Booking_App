@@ -5,8 +5,11 @@ import {
   faXmark,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import { Footer, MailList, Navbar } from "../../components";
+
+import useFetch from "../../hooks/useFetch";
 
 import "./style.scss";
 
@@ -14,12 +17,12 @@ const Hotel = () => {
   const [slider, setSlider] = useState(0);
   const [sliderOpen, setSliderOpen] = useState(false);
 
-  const photos = [
-    "https://a0.muscache.com/im/pictures/8c4f3027-8339-4559-8992-7e6eb4a536a5.jpg?im_w=1200",
-    "https://a0.muscache.com/im/pictures/2fde35ef-6fe4-4cef-8985-5ea853c93c6f.jpg?im_w=720",
-    "https://a0.muscache.com/im/pictures/bc3397e3-cd74-4f8d-9aae-075d2dd87930.jpg?im_w=720",
-    "https://a0.muscache.com/im/pictures/47753f2b-5edb-43f6-8f4f-b0fd7178bb6f.jpg?im_w=720",
-  ];
+  const location = useLocation();
+  const id = location.pathname.split('/')[2];
+
+  const { data, loading, error, reFetchData } = useFetch(
+    `/hotel/find/${id}`
+  );
 
   const handleSlide = (index) => {
     setSlider(index);
@@ -29,11 +32,11 @@ const Hotel = () => {
   const handleMove = (direction) => {
     let newSlideNumber;
 
-    if (direction === "left") {
-      newSlideNumber = slider === 0 ? (photos.length - 1) : slider - 1;
-    } else {
-      newSlideNumber = slider === (photos.length - 1) ? 0 : slider + 1;
-    }
+    // if (direction === "left") {
+    //   newSlideNumber = slider === 0 ? (photos.length - 1) : slider - 1;
+    // } else {
+    //   newSlideNumber = slider === (photos.length - 1) ? 0 : slider + 1;
+    // }
 
     setSlider(newSlideNumber);
   };
@@ -56,7 +59,7 @@ const Hotel = () => {
               onClick={() => handleMove("left")}
             />
             <div className="sliderWrapper">
-              <img src={photos[slider]} alt="sfd" className="sliderImg" />
+              <img src='' alt="sfd" className="sliderImg" />
             </div>
             <FontAwesomeIcon
               icon={faArrowAltCircleRight}
@@ -67,15 +70,15 @@ const Hotel = () => {
         )}
         <div className="hotelWrapper">
           <button className="bookNow">Reserve or Book Now!</button>
-          <h1 className="hotelTitle">Grand Hotel</h1>
+          <h1 className="hotelTitle">{data.name}</h1>
 
           <div className="hotelAddress">
             <FontAwesomeIcon icon={faLocationDot} />
-            <span>Elton st 123 New york</span>
+            <span>{data.address}</span>
           </div>
 
           <span className="hotelDistance">
-            Excellent location - 500m from center
+            Excellent location - ${data.distance}m from center
           </span>
 
           <span className="hotelPriceHighlight">
@@ -83,7 +86,7 @@ const Hotel = () => {
           </span>
 
           <div className="hotelImages">
-            {photos.map((item, i) => {
+            {/* {photos.map((item, i) => {
               return (
                 <div className="hotelImgWrapper" key={i}>
                   <img
@@ -94,7 +97,7 @@ const Hotel = () => {
                   />
                 </div>
               );
-            })}
+            })} */}
           </div>
 
           <div className="hotelDetails">
@@ -117,7 +120,9 @@ const Hotel = () => {
         </div>
       </div>
       <MailList />
-      <Footer />
+      <div className="fter">
+        <Footer />
+      </div>
     </div>
   );
 };

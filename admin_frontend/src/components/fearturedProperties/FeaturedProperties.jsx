@@ -1,42 +1,40 @@
 import React from "react";
+import useFetch from "../../hooks/useFetch";
 
 import "./style.scss";
 
 const FeaturedProperties = () => {
+  const { data, loading, error } = useFetch("/hotel?top=true&limit=4");
+
   return (
     <div className="fp">
-      <div className="fpItem">
-        <img src='https://images.unsplash.com/photo-1564507592333-c60657eea523?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8dGFqJTIwbWFoYWx8ZW58MHx8MHx8&auto=format&fit=crop&w=900&q=60' alt="" className="fpImg" />
-        <span className="fpName">Taj Mahal</span>
-        <span className="fpCity">Agra</span>
-        <span className="fpPrice">Starting from $233</span>
-        <div className="fpRating">
-          <button>9.0</button>
-          <span>Excellent</span>
-        </div>
-      </div>
-
-      <div className="fpItem">
-        <img src='https://images.unsplash.com/photo-1564507592333-c60657eea523?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8dGFqJTIwbWFoYWx8ZW58MHx8MHx8&auto=format&fit=crop&w=900&q=60' alt="" className="fpImg" />
-        <span className="fpName">Taj Mahal</span>
-        <span className="fpCity">Agra</span>
-        <span className="fpPrice">Starting from $233</span>
-        <div className="fpRating">
-          <button>9.0</button>
-          <span>Excellent</span>
-        </div>
-      </div>
-      
-      <div className="fpItem">
-        <img src='https://images.unsplash.com/photo-1564507592333-c60657eea523?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8dGFqJTIwbWFoYWx8ZW58MHx8MHx8&auto=format&fit=crop&w=900&q=60' alt="" className="fpImg" />
-        <span className="fpName">Taj Mahal</span>
-        <span className="fpCity">Agra</span>
-        <span className="fpPrice">Starting from $233</span>
-        <div className="fpRating">
-          <button>9.0</button>
-          <span>Excellent</span>
-        </div>
-      </div>
+      {loading ? (
+        "Loading, Plz wait..."
+      ) : (
+        <>
+          {data.map((data, i) => {
+            return (
+              <div className="fpItem" key={`fp${i}`}>
+                <img
+                  src={data.photos[0]}
+                  alt="fp"
+                  className="fpImg"
+                />
+                <span className="fpName">{data.name}</span>
+                <span className="fpCity">{data.city}</span>
+                <span className="fpPrice">Starting from ${data.cheapest_Price}</span>
+                <div className="fpRating">
+                {
+                  data.rating && 
+                  <button>{data.rating}</button>
+                } 
+                  <span>Excellent</span>
+                </div>
+              </div>
+            );
+          })}
+        </>
+      )}
     </div>
   );
 };

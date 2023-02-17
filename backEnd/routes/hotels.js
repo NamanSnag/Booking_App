@@ -14,9 +14,13 @@ hotelRouter.put('/:id', verifyAdmin, hotel.updateHotel);
 hotelRouter.delete('/:id', verifyAdmin, hotel.deleteHotel);
 
 // get hotel routes
-hotelRouter.get('/:id', hotel.getHotel);
+hotelRouter.get('/find/:id', hotel.getHotel);
 
 // get all hotels routes
 hotelRouter.get('/', hotel.allHotel);
+
+hotelRouter.get('/countByCity', hotel.countByCity)
+
+hotelRouter.get('/countByType', hotel.countByType)
 
 export default hotelRouter;
