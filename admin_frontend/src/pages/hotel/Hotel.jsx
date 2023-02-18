@@ -5,9 +5,10 @@ import {
   faXmark,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useLocation } from "react-router-dom";
 import { Footer, MailList, Navbar } from "../../components";
+import { SearchContext } from "../../context/SearchContext";
 
 import useFetch from "../../hooks/useFetch";
 
@@ -20,9 +21,22 @@ const Hotel = () => {
   const location = useLocation();
   const id = location.pathname.split('/')[2];
 
+  const { dates, options } = useContext(SearchContext);
+
+  const MILLISECONDS_PER_DAY = 1000*60*60*24;
+
+  const dayDifference = (date1, date2) => {
+    const timeDiff = Math.abs(date2.getTime() - date1.getTime());
+    const diffDays = Math.abs(timeDiff / MILLISECONDS_PER_DAY);
+    return diffDays;
+  }
+
+  const days = dayDifference(dates[0].endDate, dates[0].startDate);
+
   const { data, loading, error, reFetchData } = useFetch(
     `/hotel/find/${id}`
   );
+  console.log(data)
 
   const handleSlide = (index) => {
     setSlider(index);
@@ -112,7 +126,7 @@ const Hotel = () => {
                 excellent location score of 9.8!
               </span>
               <h2>
-                <b>$44003</b> (9 nights)
+                <b>${days*data.cheapest_Price*options.room}</b> ({days} nights)
               </h2>
               <button>Reserve or Book Now!</button>
             </div>
