@@ -11,13 +11,13 @@ const Navbar = () => {
   const { user } = useContext(AuthContext);
 
   const handleselect = () => {
-    navigate('/login');
-  }
+    navigate("/login");
+  };
 
   return (
     <div className="navbar">
       <nav className="navContainer">
-        <Link to={'/'} style={{textDecoration:'none'}}>
+        <Link to={"/"} style={{ textDecoration: "none" }}>
           <div className="logo">
             <img
               src="https://cdn-icons-png.flaticon.com/128/9360/9360923.png"
@@ -31,14 +31,27 @@ const Navbar = () => {
         </Link>
         {user ? (
           <div className="navItems">
-            <h3 style={{color: 'yellow'}}>{user.username}</h3>
+            <button
+              className="navButton"
+              style={{
+                color: "yellow",
+                backgroundColor: "transparent",
+                border: "none",
+              }}
+            >
+              {user.username}
+            </button>
+            <button className="navButton" ref={refLogin} onClick={handleselect}>
+              Logout
+            </button>
           </div>
-        )
-         : (
-        <div className="navItems">
-          <button className="navButton">Register</button>
-          <button className="navButton" ref={refLogin} onClick={handleselect}>Login</button>
-        </div>
+        ) : (
+          <div className="navItems">
+            <button className="navButton">Register</button>
+            <button className="navButton" ref={refLogin} onClick={handleselect}>
+              Login
+            </button>
+          </div>
         )}
       </nav>
     </div>

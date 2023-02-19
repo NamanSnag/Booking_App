@@ -6,8 +6,9 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState, useEffect, useContext } from "react";
-import { useLocation } from "react-router-dom";
-import { Footer, MailList, Navbar } from "../../components";
+import { useLocation, useNavigate } from "react-router-dom";
+import { Footer, MailList, Navbar, Reserve } from "../../components";
+import { AuthContext } from "../../context/AuthContext";
 import { SearchContext } from "../../context/SearchContext";
 
 import useFetch from "../../hooks/useFetch";
@@ -17,26 +18,27 @@ import "./style.scss";
 const Hotel = () => {
   const [slider, setSlider] = useState(0);
   const [sliderOpen, setSliderOpen] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
 
   const location = useLocation();
-  const id = location.pathname.split('/')[2];
+  const id = location.pathname.split("/")[2];
+
+  const navigate = useNavigate();
 
   const { dates, options } = useContext(SearchContext);
+  const { user } = useContext(AuthContext);
 
-  const MILLISECONDS_PER_DAY = 1000*60*60*24;
+  const MILLISECONDS_PER_DAY = 1000 * 60 * 60 * 24;
 
   const dayDifference = (date1, date2) => {
     const timeDiff = Math.abs(date2.getTime() - date1.getTime());
     const diffDays = Math.abs(timeDiff / MILLISECONDS_PER_DAY);
     return diffDays;
-  }
+  };
 
   const days = dayDifference(dates[0].endDate, dates[0].startDate);
 
-  const { data, loading, error, reFetchData } = useFetch(
-    `/hotel/find/${id}`
-  );
-  console.log(data)
+  const { data, loading, error, reFetchData } = useFetch(`/hotel/find/${id}`);
 
   const handleSlide = (index) => {
     setSlider(index);
@@ -53,6 +55,13 @@ const Hotel = () => {
     // }
 
     setSlider(newSlideNumber);
+  };
+
+  const handleClick = () => {
+    if (!user) {
+      navigate("/login");
+    }
+    setOpenModal(true);
   };
 
   return (
@@ -73,7 +82,7 @@ const Hotel = () => {
               onClick={() => handleMove("left")}
             />
             <div className="sliderWrapper">
-              <img src='' alt="sfd" className="sliderImg" />
+              <img src="" alt="sfd" className="sliderImg" />
             </div>
             <FontAwesomeIcon
               icon={faArrowAltCircleRight}
@@ -83,7 +92,9 @@ const Hotel = () => {
           </div>
         )}
         <div className="hotelWrapper">
-          <button className="bookNow">Reserve or Book Now!</button>
+          <button className="bookNow" onClick={handleClick}>
+            Reserve or Book Now!
+          </button>
           <h1 className="hotelTitle">{data.name}</h1>
 
           <div className="hotelAddress">
@@ -126,17 +137,19 @@ const Hotel = () => {
                 excellent location score of 9.8!
               </span>
               <h2>
-                <b>${days*data.cheapest_Price*options.room}</b> ({days} nights)
+                <b>${days * data.cheapest_Price * options.room}</b> ({days}{" "}
+                nights)
               </h2>
-              <button>Reserve or Book Now!</button>
+              <button onClick={handleClick}>Reserve or Book Now!</button>
             </div>
           </div>
         </div>
+        <MailList />
+        <div className="fter">
+          <Footer />
+        </div>
       </div>
-      <MailList />
-      <div className="fter">
-        <Footer />
-      </div>
+      {openModal && <Reserve setOpen={setOpenModal} hotelId={id}/>}
     </div>
   );
 };

@@ -14,6 +14,7 @@ import "./style.scss";
 import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
 import { SearchContext } from "../../context/SearchContext";
+import { AuthContext } from "../../context/AuthContext";
 
 const Header = () => {
   const [destination, setDestination] = useState("");
@@ -35,6 +36,8 @@ const Header = () => {
   const navigate = useNavigate();
 
   const { dispatch } = useContext(SearchContext);
+
+  const { user} = useContext(AuthContext);
 
   const handleDate = () => {
     setOpenDate(!openDate);
@@ -93,7 +96,9 @@ const Header = () => {
           </p>
 
           <div>
-            <button className="headerBtn">Sign in / Register</button>
+          {user ? (null): 
+          (<button className="headerBtn">Sign in / Register</button>)}
+            
           </div>
 
           <div className="headerSearch">
