@@ -1,31 +1,34 @@
 import mongoose from "mongoose";
 
-const RoomSchema = new mongoose.Schema(
-  {
-    title: {
-      type: String,
-      required: true,
-    },
-    price: {
-      type: Number,
-      required: true,
-    },
-    maxPeople: {
-      type: Number,
-      required: true,
-    },
-    description: {
-      type: String,
-      required: true,
-    },
-    roomNumbers: [
-        { 
-            number: Number, 
-            unavailableDates: {type: [Date]}
-        }
-    ],
-  },
-  { timestamps: true }
-);
+import {reviewSchema} from './Review.js'
+import { photoSchema } from "./Photo.js";
 
-export default mongoose.model("Room", RoomSchema);
+export const roomSchema = new mongoose.Schema({
+  roomNumber: {
+    type: String,
+    required: true,
+  },
+  capacity: {
+    type: Number,
+    required: true,
+  },
+  availability: [
+    {
+      date: {
+        type: Date,
+        required: true,
+      },
+      isAvailable: {
+        type: Boolean,
+        default: true,
+      },
+      price: {
+        type: Number,
+        required: true,
+      },
+    },
+  ],
+  ratings: [reviewSchema],
+  photos: [photoSchema],
+});
+

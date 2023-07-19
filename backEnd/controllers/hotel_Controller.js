@@ -1,12 +1,30 @@
 import Hotel from "../models/Hotel.js";
-import Room from "../models/Room.js";
+// import Room from "../models/Room.js";
 
 // Add Hotel
 const addHotel = async (req, res, next) => {
   try {
-    const newHotel = new Hotel(req.body);
-    const savedHotel = await newHotel.save();
-    res.status(200).json(savedHotel);
+    const {
+      name,
+      type,
+      address,
+      startPrice,
+      highestPrice,
+      phone,
+      description,
+      rating,
+    } = req.body;
+    const newHotel = await Hotel.create({
+      name: name,
+      type: type,
+      address: address,
+      startPrice: startPrice,
+      highestPrice: highestPrice,
+      phone: phone,
+      description: description,
+      rating: rating,
+    });
+    res.status(200).json(newHotel);
   } catch (error) {
     next(error);
   }
@@ -49,12 +67,9 @@ const getHotel = async (req, res, next) => {
 
 // Get All Hotel
 const allHotel = async (req, res, next) => {
-  const { min, max, limit, ...other } = req.query;
+  let { limit } = req.query;
   try {
-    const hotels = await Hotel.find({
-      ...other,
-      cheapest_Price: { $gt: min | 1, $lt: max || 9999 },
-    }).limit(limit);
+    const hotels = await Hotel.find().limit(limit);
     res.status(200).json(hotels);
   } catch (error) {
     next(error);
@@ -94,16 +109,16 @@ const countByType = async (req, res, next) => {
   }
 };
 
-const getHotelRooms = async (req, res, next) => {
-  try {
-    const hotel = await Hotel.findById(req.params.id);
-    const rooms = await Promise.all(hotel.rooms.map(room => Room.findById(room)));
-    console.log(rooms)
-    res.status(200).json(rooms);
-  } catch (error) {
-    next(error);
-  }
-}
+// const getHotelRooms = async (req, res, next) => {
+//   try {
+//     const hotel = await Hotel.findById(req.params.id);
+//     const rooms = await Promise.all(hotel.rooms.map(room => Room.findById(room)));
+//     console.log(rooms)
+//     res.status(200).json(rooms);
+//   } catch (error) {
+//     next(error);
+//   }
+// }
 
 export default {
   addHotel,
@@ -113,5 +128,5 @@ export default {
   allHotel,
   countByCity,
   countByType,
-  getHotelRooms
+  // getHotelRooms
 };

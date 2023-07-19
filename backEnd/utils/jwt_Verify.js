@@ -1,7 +1,7 @@
 import Jwt from "jsonwebtoken";
 
 export const verifyToken = (req, res, next) => {
-    const token = req.cookies.token;
+    const token = req.body.token;
 
     if(!token) return res.status(401).json({
         succcess: false,
@@ -17,19 +17,6 @@ export const verifyToken = (req, res, next) => {
         next();
     });
 }
-
-export const verifyUser = (req, res, next) => {
-    verifyToken(req, res,() => {
-        if(req.user.id === req.params.id || req.user.isAdmin){
-            next();
-        }else {
-            return res.status(403).json({
-                succcess: false,
-                message: "Token is invalid"
-            });
-        }
-    })
-};
 
 export const verifyAdmin = (req, res, next) => {
     verifyToken(req, res,() => {

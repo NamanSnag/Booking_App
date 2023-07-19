@@ -1,0 +1,139 @@
+.rooms {
+display: flex;
+justify-content: center;
+
+.hotel__container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    width: 100%;
+    min-width: 360px;
+    margin: 0 auto;
+    overflow: hidden;
+    // border: 1px solid #ccc;
+    border-radius: 8px;
+  
+    .container {
+      display: flex;
+      scroll-snap-type: x mandatory;
+      overflow-x: scroll;
+      scroll-behavior: smooth;
+      scroll-snap-align: start;
+      height: 360px;
+      padding: 10px 0;
+      position:relative
+    }
+  
+    .slider-item {
+      flex: 0 0 100%;
+      scroll-snap-align: start;
+      padding: 10px;
+      width: 60%;
+      box-sizing: border-box;
+      border-radius: 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+  
+      h3 {
+        font-size: 24px;
+        font-weight: bold;
+        margin: 10px 0;
+      }
+  
+      p {
+        font-size: 16px;
+        color: #666;
+      }
+  
+      .exp__img {
+        height: 100%;
+        object-fit: cover;
+        margin-bottom: 10px;
+        width: 100%;
+        min-width: 300px;
+        transition: transform 0.3s ease-in-out;
+  
+        &:hover {
+          transform: scale(1.05);
+        }
+      }
+    }
+  
+    .prev-btn,
+    .next-btn {
+      margin: 10px;
+      padding: 8px 16px;
+      font-size: 16px;
+      background-color: #0f3863;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s ease-in-out;
+      position: absolute;
+  
+      &:disabled {
+        background-color: #ccc;
+        cursor: not-allowed;
+      }
+  
+      &:hover:not(:disabled) {
+        background-color: #083464;
+      }
+    }
+
+    .prev-btn {
+      left: 0;
+      top: 40%;
+    }
+
+    .next-btn {
+      right: 0;
+      top: 40%;
+    }
+
+    .hotel__detail {
+      padding: 10px;
+      max-width: 442px;
+
+      h2 {
+        color: rgb(16, 16, 161);
+        letter-spacing: 1.4px;
+        margin-bottom: 4px;
+      }
+
+      .hotel__c {
+        display: flex;
+        gap: 40px;
+        margin-bottom: 20px;
+
+        .star {
+          color: rgb(243, 196, 76);
+        }
+
+        p {
+          color: green;
+
+          span {
+            color: red;
+          }
+        }
+      }
+
+      p {
+        color: black;
+        font-weight: 600;
+        letter-spacing: 1px;
+
+        span {
+          color: #666;
+          letter-spacing: 0;
+        }
+      }
+    }
+  }
+  
+}

@@ -3,6 +3,8 @@ import dotenv from 'dotenv';
 import db from './config/mongoose.js';
 import routes from './routes/index.js';
 import cookieParser from 'cookie-parser';
+import helmet from 'helmet';
+import cors from 'cors';
 const port = process.env.PORT || 8800;
 const app = express();
 dotenv.config();
@@ -10,9 +12,20 @@ dotenv.config();
 //middleware
 app.use(express.json());
 
-app.use(cookieParser())
+app.use(cors());
 
-app.use('/', routes);
+app.use(cookieParser());
+
+app.use(helmet());
+
+app.use('/api', routes);
+
+// production
+
+// app.use(express.static(path.join(__dirname, "./client/build")));
+// app.get('*', (req, res) => {
+//     res.sendFile(path.join(__dirname, "./client/build/index.html"));
+// })
 
 app.use((err, req, res, next)=>{
     const errorStatus = err.status || 500;

@@ -1,61 +1,64 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
+import { photoSchema } from './Photo.js';
+import { reviewSchema } from './Review.js';
+import { roomSchema } from "./Room.js";
 
 const hotelSchema = new mongoose.Schema({
-    name: {
-        type: String,
-        required: true
-    },
-    type: {
-        type: String,
-        required: true
+  name: {
+    type: String,
+    required: true,
+    index: true,
+  },
+  type: {
+    type: String,
+    required: true,
+    index: true,
+  },
+  address: {
+    street: {
+      type: String,
+      required: true,
     },
     city: {
-        type: String,
-        required: true
+      type: String,
+      required: true,
     },
-    address: {
-        type: String,
-        required: true
+    state: {
+      type: String,
     },
-    distance: {
-        type: String,
-        required: true
+    country: {
+      type: String,
+      required: true,
+      index: true,
     },
-    photos: {
-        type: [
-            String
-        ]
+    zipCode: {
+      type: String,
+      required: true,
     },
-    title: {
-        type: String,
-        required: true
-    },
-    description: {
-        type: String,
-        required: true
-    },
-    rating: {
-        type: Number,
-        min: 0,
-        max: 5
-    },
-    rooms:{
-        type: [
-            String
-        ]
-    },
-    cheapest_Price: {
-        type: Number,
-        required: true
-    },
-    top: {
-        type: Boolean,
-        default: false
-    },
-},{
-    timestamps: true
+  },
+  startPrice: {
+    type: Number,
+    required: true,
+  },
+  highestPrice: {
+    type: Number,
+    required: true,
+  },
+  phone: {
+    type: String,
+  },
+  description: {
+    type: String,
+    required: true,
+  },
+  photos: [photoSchema],
+  rooms: [roomSchema],
+  rating: {
+    type: Number,
+  },
+  review: [reviewSchema],
 });
 
-const Hotel = mongoose.model('Hotel', hotelSchema);
+const Hotel = mongoose.model("Hotel", hotelSchema);
 
 export default Hotel;
